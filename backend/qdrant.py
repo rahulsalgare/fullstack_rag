@@ -47,5 +47,5 @@ def upload_website_to_collection(url: str):
 
 
 if __name__ == '__main__':
-    url = "https://medium.com/story-nerds/3-essential-moments-every-story-needs-to-have-32fddc183d07"
+    url = "https://medium.com/@saikikeshi/you-are-not-everyones-cup-of-tea-and-that-s-okay-93ac9d0309ef"
     upload_website_to_collection(url)

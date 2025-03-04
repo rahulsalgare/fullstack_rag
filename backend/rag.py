@@ -9,11 +9,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# model = ChatOpenAI(
-#     model_name="gpt-4o",
-#     temperature=0.5,
-# )
-model = ChatOllama(model="llama3.2", format="json", temperature=0)
+model = ChatOpenAI(
+    model_name="gpt-4o",
+    temperature=0.5,
+)
+# model = ChatOllama(model="llama3.2", format="json", temperature=0)
 
 prompt_template = """
 Answer the question based on the context, in a concise manner, in markdown and using bullet points where applicable.
@@ -51,6 +51,6 @@ def get_answer_and_docs(question: str):
     }
 
 if __name__ == '__main__':
-    question = "What did Yohji Yamamoto say ?"
+    question = "list the quotes by Saiki"
     ans = get_answer_and_docs(question)
     print(ans)

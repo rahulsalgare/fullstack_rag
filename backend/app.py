@@ -2,9 +2,20 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from rag import get_answer_and_docs
+from qdrant import upload_website_to_collection
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_methods=["*"]
+)
 
 class Message(BaseModel):
     message: str
@@ -18,3 +29,12 @@ def chat(message: Message):
         "documents": [doc.dict() for doc in response["context"]]
     }
     return JSONResponse(content=response_content, status_code=200)
+
+@app.post("/indexing", description="Index a website through this endpoint")
+def indexing(url: Message):
+    try:
+        response = upload_website_to_collection(url.message)
+        return JSONResponse(content={"response": response}, status_code=200)
+    
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=400)
